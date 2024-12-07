@@ -3,7 +3,7 @@ package com.myProject.crm_project.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Data // lombok get set hepsine otomatik koyuyor
+@Data
 @Entity
 @Table(name = "cust")
 public class Customer {

@@ -3,12 +3,12 @@ package com.myProject.crm_project.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Data // lombok get set hepsine otomatik koyuyor
+@Data
 @Entity
-@Table(name = "products") // Sen bir tablosun ve buna karsilik geliyorsun
+@Table(name = "products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // otomatik artan
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 

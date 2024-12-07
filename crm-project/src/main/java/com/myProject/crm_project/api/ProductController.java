@@ -7,23 +7,20 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// Sen bir rest controllersin
 @RestController
-@RequestMapping("/api/products") // Domainin sonuna bu gelirse bu controller calisacak
+@RequestMapping("/api/products")
 @AllArgsConstructor
 public class ProductController {
 
     private ProductService productService;
 
-    // Burada request body sinden cekmesini sagladik
     @PostMapping
     public Product add(@RequestBody Product product) {
         return productService.add(product);
     }
 
-    // Buradaki annotasyonlari spring-web veya spring-webmvc den cekiyor
     @GetMapping
-    public List<Product> getAll(){
+    public List<Product> getAll() {
         return productService.getAll();
     }
 
@@ -33,9 +30,8 @@ public class ProductController {
     }
 
     @DeleteMapping
-    public void delete(@RequestParam(value="id") int id){
+    public void delete(@RequestParam(value = "id") int id) {
         productService.delete(id);
     }
-
 
 }

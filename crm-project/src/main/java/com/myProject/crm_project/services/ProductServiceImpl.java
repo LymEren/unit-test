@@ -2,33 +2,25 @@ package com.myProject.crm_project.services;
 
 import com.myProject.crm_project.entities.Product;
 import com.myProject.crm_project.repositories.ProductRepository;
+import com.myProject.crm_project.rules.ProductBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
-// Bu class bu interfacein icinin dolu oldugu versiyondur
 @Service
 @AllArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
     private ProductRepository productRepository;
+    private ProductBusinessRules productBusinessRules;
 
 
     @Override
     public Product add(Product product) {
 
-        // is kurallari buraya yazilir
-        // Bir kisi %20 indirimden yararlanacaksa 1 yildir abone olmali
-        // Eger bu kurallardan gecerse db ye yazilacak
 
-        // Git bu productin ismini oku
-        Optional<Product> productCheck = productRepository.findByNameIgnoreCase(product.getName());
-
-        if (productCheck.isPresent()) {
-            throw new RuntimeException("Bu ürün zaten kayıtlı.");
-        }
+        productBusinessRules.productNameCannotBeDublicated(product.getName());
 
         Product createdProduct = productRepository.save(product);
         return createdProduct;

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/customer") // Domainin sonuna bu gelirse bu controller calisacak
+@RequestMapping("/api/customer")
 @AllArgsConstructor
 public class CustomerController {
 
@@ -21,7 +21,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    public List<Customer> getAll(){
+    public List<Customer> getAll() {
         return customerService.getAll();
     }
 
@@ -31,7 +31,7 @@ public class CustomerController {
     }
 
     @DeleteMapping
-    public void delete(@RequestParam(value="id") int id){
+    public void delete(@RequestParam(value = "id") int id) {
         customerService.delete(id);
     }
 }

@@ -17,7 +17,7 @@ public class ProductBusinessRules {
         Optional<Product> productCheck = productRepository.findByNameIgnoreCase(productName);
 
         if (productCheck.isPresent()) {
-            throw new RuntimeException("Bu ürün zaten kayıtlı.");
+            throw new RuntimeException("This product is already registered.");
         }
         }
     }
