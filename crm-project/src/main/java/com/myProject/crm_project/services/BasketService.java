@@ -1,16 +1,16 @@
 package com.myProject.crm_project.services;
 
-import com.myProject.crm_project.entities.Customer;
+import com.myProject.crm_project.entities.Basket;
 
 import java.util.List;
 
 public interface BasketService {
 
-    Customer addCustomer(Customer customer);
+    Basket addItem(Basket basket);
 
-    List<Customer> getAllCustomers();
+    List<Basket> getAllItemsFromBasket();
 
-    Customer updateCustomer(Customer customer);
+    Basket updateBasket(Basket basket);
 
-    void deleteCustomer(int id);
+    void deleteItemFromBasket(int id);
 }

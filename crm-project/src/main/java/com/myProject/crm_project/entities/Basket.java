@@ -15,9 +15,9 @@ public class Basket {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "productName", nullable = false)
+    @Column(name = "itemName", nullable = false)
     @Size(max = 100)
-    private String productName;
+    private String itemName;
 
     @Column(name = "quantity")
     private int quantity;
