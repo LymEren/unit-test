@@ -13,7 +13,7 @@ import java.util.Optional;
 public class BasketBusinessRules {
     private BasketRepository basketRepository;
 
-    public boolean productCannotBeAddedTwice(String productName) {
+    public boolean isProductAlreadyInBasket(String productName) {
         Optional<Basket> productCheck = basketRepository.findByItemNameIgnoreCase(productName);
         return productCheck.isPresent();
     }

@@ -19,7 +19,7 @@ public class BasketServiceImpl implements BasketService {
     @Override
     public Basket addItem(Basket basket) {
 
-        boolean isExist = basketBusinessRules.productCannotBeAddedTwice(basket.getItemName());
+        boolean isExist = basketBusinessRules.isProductAlreadyInBasket(basket.getItemName());
 
         if (isExist) {
             Optional<Basket> existingBasket = basketRepository.findByItemNameIgnoreCase(basket.getItemName());
@@ -27,12 +27,12 @@ public class BasketServiceImpl implements BasketService {
                 Basket existingProduct = existingBasket.get();
                 existingProduct.setQuantity(existingProduct.getQuantity() + 1);
                 return basketRepository.save(existingProduct);
-            } else {
-                basket.setQuantity(1);
-                return basketRepository.save(basket);
-
             }
+        } else {
+            basket.setQuantity(1);
+            return basketRepository.save(basket);
         }
+        System.out.println("No changes made to the basket.");
         return basket;
     }
 
