@@ -10,8 +10,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
@@ -39,17 +37,15 @@ class BasketServiceImplTest {
         existingBasket.setItemName("Apple");
         existingBasket.setQuantity(2);
 
-        when(basketBusinessRules.isProductAlreadyInBasket("Apple")).thenReturn(true);
-        when(basketRepository.findByItemNameIgnoreCase("Apple")).thenReturn(Optional.of(existingBasket));
-        when(basketRepository.save(existingBasket)).thenReturn(existingBasket);
+        when(basketBusinessRules.addOrUpdateItemInBasket(existingBasket)).thenReturn(existingBasket);
 
         // Act
         Basket result = basketService.addItem(existingBasket);
 
         // Assert
         assertNotNull(result);
-        assertEquals(3, result.getQuantity());
-        verify(basketRepository, times(1)).save(existingBasket);
+        assertEquals(2, result.getQuantity()); // Quantity is updated in business rules
+        verify(basketBusinessRules, times(1)).addOrUpdateItemInBasket(existingBasket);
     }
 
     @Test
@@ -57,9 +53,9 @@ class BasketServiceImplTest {
         // Arrange
         Basket newBasket = new Basket();
         newBasket.setItemName("Banana");
+        newBasket.setQuantity(1);
 
-        when(basketBusinessRules.isProductAlreadyInBasket("Banana")).thenReturn(false);
-        when(basketRepository.save(newBasket)).thenReturn(newBasket);
+        when(basketBusinessRules.addOrUpdateItemInBasket(newBasket)).thenReturn(newBasket);
 
         // Act
         Basket result = basketService.addItem(newBasket);
@@ -67,7 +63,7 @@ class BasketServiceImplTest {
         // Assert
         assertNotNull(result);
         assertEquals(1, result.getQuantity()); // Quantity should be set to 1
-        verify(basketRepository, times(1)).save(newBasket);
+        verify(basketBusinessRules, times(1)).addOrUpdateItemInBasket(newBasket);
     }
 
 }
