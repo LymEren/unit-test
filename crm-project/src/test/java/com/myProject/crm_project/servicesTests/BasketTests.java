@@ -66,4 +66,17 @@ class BasketServiceImplTest {
         verify(basketBusinessRules, times(1)).addOrUpdateItemInBasket(newBasket);
     }
 
+    @Test
+    void testDeleteItemFromBasket() {
+        // Arrange
+        int basketId = 1;
+        doNothing().when(basketRepository).deleteById(basketId);
+
+        // Act
+        basketService.deleteItemFromBasket(basketId);
+
+        // Assert
+        verify(basketRepository, times(1)).deleteById(basketId);
+    }
+
 }
