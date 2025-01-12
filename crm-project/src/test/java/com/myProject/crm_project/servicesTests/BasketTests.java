@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
@@ -78,5 +80,35 @@ class BasketServiceImplTest {
         // Assert
         verify(basketRepository, times(1)).deleteById(basketId);
     }
+
+    @Test
+    void testGetAllItemsFromBasket() {
+        // Arrange
+        Basket basket1 = new Basket();
+        basket1.setId(1);
+        basket1.setItemName("Apple");
+        basket1.setQuantity(2);
+
+        Basket basket2 = new Basket();
+        basket2.setId(2);
+        basket2.setItemName("Banana");
+        basket2.setQuantity(3);
+
+        List<Basket> expectedBaskets = List.of(basket1, basket2);
+
+        when(basketRepository.findAll()).thenReturn(expectedBaskets);
+
+        // Act
+        List<Basket> result = basketService.getAllItemsFromBasket();
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals("Apple", result.get(0).getItemName());
+        assertEquals("Banana", result.get(1).getItemName());
+        verify(basketRepository, times(1)).findAll();
+    }
+
+
 
 }
